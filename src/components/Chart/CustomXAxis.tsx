@@ -1,10 +1,4 @@
-interface CustomXAxisProps {
-    x: number;
-    y: number;
-    payload: { value: string };
-}
-
-const CustomXAxis = ({ x, y, payload }: CustomXAxisProps) => {
+const CustomXAxis = ({ x, y, payload }: any) => {
     const date = new Date(payload.value);
     return (
         <g transform={`translate(${x},${y + 20})`}>

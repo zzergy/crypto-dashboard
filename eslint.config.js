@@ -8,6 +8,7 @@ import * as tseslint from 'typescript-eslint';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import prettierConfig from 'eslint-config-prettier';
+import pluginPrettier from 'eslint-plugin-prettier';
 
 export default defineConfig([
     globalIgnores(['dist', 'build']),
@@ -31,8 +32,7 @@ export default defineConfig([
             import: pluginImport,
             'unused-imports': pluginUnusedImports,
             react: pluginReact,
-            'react-hooks': reactHooks,
-            'react-refresh': reactRefresh,
+            prettier: pluginPrettier,
         },
         extends: [
             pluginJs.configs.recommended,
@@ -43,15 +43,11 @@ export default defineConfig([
             prettierConfig,
         ],
         rules: {
-            // Allow `any`
             '@typescript-eslint/no-explicit-any': 'off',
-
-            // React
             'react/react-in-jsx-scope': 'off',
             'react/no-array-index-key': 'error',
             'react/self-closing-comp': 'error',
 
-            // Imports
             'import/order': [
                 'warn',
                 {
@@ -63,7 +59,6 @@ export default defineConfig([
                 },
             ],
 
-            // Unused imports/vars
             'unused-imports/no-unused-imports': 'error',
             'unused-imports/no-unused-vars': [
                 'error',
@@ -90,13 +85,12 @@ export default defineConfig([
                 { blankLine: 'always', prev: '*', next: 'function' },
             ],
 
-            // Prettier integration
             'prettier/prettier': [
                 'error',
                 {
                     singleQuote: true,
                     trailingComma: 'es5',
-                    tabWidth: 2,
+                    tabWidth: 4,
                     semi: true,
                 },
             ],

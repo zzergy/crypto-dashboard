@@ -12,7 +12,6 @@ import tokenIcon from '../assets/token-icon.svg';
 import { calculateChanges, getTimeRange, HistoryPoint } from '../utils';
 
 const TokenTable = () => {
-    // Memoize the time range so it doesn't change every render
     const { startDate, endDate } = useMemo(() => getTimeRange(7), []);
 
     const symbols = useMemo(() => topEthereumTokens.map((t) => t.symbol), []);
@@ -48,7 +47,6 @@ const TokenTable = () => {
                 token.price
             );
 
-            // Compute ATH and ATL from priceHistory
             const prices = priceHistory
                 .map((p) => parseFloat(p.value))
                 .filter((v) => !isNaN(v));

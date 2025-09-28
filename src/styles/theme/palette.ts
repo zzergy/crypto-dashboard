@@ -9,8 +9,8 @@ export const palette = {
         primary: '#FFFFFF',
         secondary: '#CCCCCC',
     },
-    error: '#FF4C4C',
+    error: '#FF5E91',
     warning: '#FFC107',
-    info: '#2196F3',
-    success: '#4CAF50',
+    info: '#5E9EFF',
+    success: '#5EFF91',
 };

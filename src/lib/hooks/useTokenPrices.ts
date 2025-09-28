@@ -28,9 +28,13 @@ export const useTokenPrices = (symbols: string[]) => {
                 }));
 
                 setPricesList(formattedPrices);
-            } catch (error) {
-                console.error('Error fetching token prices:', error);
-                setError('Failed to fetch token prices');
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    setError('Failed to fetch token prices: ' + err.message);
+                } else {
+                    setError('Failed to fetch token prices');
+                }
+
                 setLoading(false);
                 setPricesList([]);
             }

@@ -11,9 +11,13 @@ export interface GetTokenPriceBySymbolResponse {
     data: TokenPriceData[];
 }
 
+export interface GetMultipleHistoricalPriceBySymbolPayload {
+    symbols: string[];
+    startDate: string;
+    endDate: string;
+    interval: HistoricalPriceInterval;
+}
 export interface GetHistoricalPriceBySymbolPayload {
     symbol: string;
-    startTime: string;
-    endTime: string;
     interval: HistoricalPriceInterval;
 }

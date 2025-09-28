@@ -1,36 +1,25 @@
-import { useEffect, useState } from 'react';
-import { alchemy } from '../alchemy';
 import { HistoricalPriceBySymbolResponse } from 'alchemy-sdk';
+import { useQuery } from '@tanstack/react-query';
+import { alchemy } from '../alchemy';
 import { GetHistoricalPriceBySymbolPayload } from '../../types';
+import { getTimeRange } from '../../utils';
 
-export const usePricesHistory = (
+export const useTokenPriceHistory = (
     payload: GetHistoricalPriceBySymbolPayload
 ) => {
-    const [history, setHistory] =
-        useState<HistoricalPriceBySymbolResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    return useQuery<HistoricalPriceBySymbolResponse, Error>({
+        queryKey: ['tokenPriceHistory', payload],
+        queryFn: async () => {
+            const { startDate: startTime, endDate: endTime } = getTimeRange(20);
 
-    useEffect(() => {
-        const fetchTokenPriceHistory = async () => {
-            setLoading(true);
-
-            try {
-                const stats = await alchemy.prices.getHistoricalPriceBySymbol(
-                    payload.symbol,
-                    payload.startTime,
-                    payload.endTime,
-                    payload.interval
-                );
-                setHistory(stats);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching price history:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchTokenPriceHistory();
-    }, [payload]);
-
-    return { history, loading };
+            return alchemy.prices.getHistoricalPriceBySymbol(
+                payload.symbol,
+                startTime,
+                endTime,
+                payload.interval
+            );
+        },
+        staleTime: 60 * 60 * 1000, // 1 hour
+        refetchInterval: 60 * 60 * 1000, // refetch every 1 hour
+    });
 };

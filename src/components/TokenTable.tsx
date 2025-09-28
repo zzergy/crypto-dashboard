@@ -69,8 +69,8 @@ const TokenTable = () => {
 
     const columns: GridColDef[] = [
         {
-            field: 'token',
-            headerName: 'Token',
+            field: 'name',
+            headerName: 'Token Name',
             width: 250,
             renderCell: (params: any) => (
                 <Box display="flex" alignItems="center" gap={1} height="100%">
@@ -81,7 +81,7 @@ const TokenTable = () => {
                         height={24}
                     />
                     <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                        {params.row.name || params.row.symbol}
+                        {params.value}
                     </Typography>
                 </Box>
             ),
@@ -125,7 +125,6 @@ const TokenTable = () => {
                     <Typography
                         sx={{
                             display: 'inline-block',
-
                             color:
                                 val > 0
                                     ? 'success.main'
@@ -139,10 +138,9 @@ const TokenTable = () => {
                 );
             },
         },
-
         {
             field: 'ath',
-            headerName: '20d TH',
+            headerName: '20d ATH',
             width: 120,
             type: 'number',
             renderCell: (params: any) => {
@@ -152,7 +150,7 @@ const TokenTable = () => {
         },
         {
             field: 'atl',
-            headerName: '20d TL',
+            headerName: '20d ATL',
             width: 120,
             type: 'number',
             renderCell: (params: any) => {
@@ -186,7 +184,18 @@ const TokenTable = () => {
                 </Box>
             ) : (
                 <DataGrid
-                    sx={{ border: 'none', borderRadius: 3 }}
+                    sx={{
+                        border: 'none',
+                        borderRadius: 3,
+                        '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within':
+                            {
+                                outline: 'none',
+                            },
+                        '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within':
+                            {
+                                outline: 'none',
+                            },
+                    }}
                     rows={rows}
                     columns={columns}
                     hideFooter

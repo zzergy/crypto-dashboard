@@ -13,6 +13,7 @@ const fetchTokensMetadata = async (tokens: TokenInfo[]) => {
                 const data = await alchemy.core.getTokenMetadata(contract);
                 return { symbol, data };
             } catch (err) {
+                // eslint-disable-next-line no-console
                 console.error(`Error fetching metadata for ${symbol}`, err);
                 return { symbol, data: null };
             }

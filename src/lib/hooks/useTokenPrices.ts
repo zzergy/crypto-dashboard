@@ -21,7 +21,7 @@ export const useTokenPrices = (symbols: string[]) => {
 
                 const response =
                     await alchemy.prices.getTokenPriceBySymbol(symbols);
-                console.log(response);
+
                 const formattedPrices = response.data.map((token) => ({
                     symbol: token.symbol,
                     price: parseFloat(token.prices[0]?.value || '0'),

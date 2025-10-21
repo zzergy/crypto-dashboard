@@ -1,13 +1,16 @@
 export const palette = {
     primary: '#915EFF',
-    secondary: '#BB86FC',
+    secondary: '#9C84D4',
     background: {
         default: '#0F0A18',
         paper: '#1B142B',
     },
     text: {
         primary: '#FFFFFF',
-        secondary: '#CCCCCC',
+        secondary: '#7a7480',
+    },
+    gradients: {
+        primary: 'linear-gradient(45deg, #915EFF, #5EFF91)',
     },
     error: '#FF5E91',
     warning: '#FFC107',

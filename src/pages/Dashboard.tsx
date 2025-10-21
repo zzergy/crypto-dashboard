@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { Chart, TokenTable } from '../components';
+import TokenNews from '../components/news';
 
 const Dashboard = () => {
     return (
@@ -12,6 +13,7 @@ const Dashboard = () => {
         >
             <TokenTable />
             <Chart />
+            <TokenNews symbol="SUSHI" />
         </Box>
     );
 };

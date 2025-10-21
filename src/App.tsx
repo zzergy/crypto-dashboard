@@ -1,8 +1,14 @@
 import './App.css';
-import Dashboard from './pages/Dashboard';
+import { Footer } from './components';
+import { Homepage } from './pages';
 
 function App() {
-    return <Dashboard />;
+    return (
+        <>
+            <Homepage />
+            <Footer />
+        </>
+    );
 }
 
 export default App;

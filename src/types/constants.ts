@@ -18,3 +18,8 @@ export const topEthereumTokens: { symbol: string; contract: string }[] = [
     { symbol: 'GRT', contract: '0xc944e90c64b2c07662a292be6244bdf05cda44a7' },
     { symbol: 'LRC', contract: '0x199e8b6b2d6b2b0b6b0b6b0b6b0b6b0b6b0b6b0b' },
 ];
+
+export enum PageNames {
+    HERO = 'hero',
+    FEATURES = 'features',
+}

@@ -8,7 +8,7 @@ import {
     useTokensMetadata,
 } from '../lib/hooks';
 import { topEthereumTokens } from '../types';
-import tokenIcon from '../assets/token-icon.svg';
+import tokenIcon from '../assets/icons/token-icon.svg';
 import { calculateChanges, getTimeRange, HistoryPoint } from '../utils';
 
 const TokenTable = () => {

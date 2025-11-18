@@ -23,3 +23,8 @@ export enum PageNames {
     HERO = 'hero',
     FEATURES = 'features',
 }
+
+export const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+
+export const TOKENS_METADATA = `${API_BASE_URL}/api/tokens/metadata`;

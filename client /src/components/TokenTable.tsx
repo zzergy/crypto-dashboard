@@ -27,8 +27,10 @@ const TokenTable = () => {
 
     const { data: tokensCurrentPrices, isLoading: tokensLoading } =
         useCurrentTokenPrices(symbols);
+
     const { data: metadata, isLoading: metadataLoading } =
         useTokensMetadata(topEthereumTokens);
+
     const { data: historicalPrices, isLoading: historicalLoading } =
         useMultipleTokenPriceHistory(priceHistoryPayload);
 
@@ -38,7 +40,9 @@ const TokenTable = () => {
         if (!tokensCurrentPrices || !metadata || !historicalPrices) return [];
 
         return tokensCurrentPrices.map((token) => {
-            const meta = metadata.find((m) => m.symbol === token.symbol)?.data;
+            const meta = metadata.find(
+                (metadata) => metadata.symbol === token.symbol
+            )?.data;
             const priceHistory =
                 (historicalPrices[token.symbol]?.data as HistoryPoint[]) || [];
 

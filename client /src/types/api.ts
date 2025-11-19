@@ -11,7 +11,7 @@ export interface GetTokenPriceBySymbolResponse {
     data: TokenPriceData[];
 }
 
-export interface GetMultipleHistoricalPriceBySymbolPayload {
+export interface GetTableContentPayload {
     symbols: string[];
     startDate: string;
     endDate: string;

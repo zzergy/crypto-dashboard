@@ -3,11 +3,14 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import cors from 'cors';
 import { tokensRouter } from './routes/tokens';
+import path from 'path';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8888;
 const CLIENT_PORT = process.env.CLIENT_PORT || 5173;
+
+app.use('/images', express.static(path.join(__dirname, '../public/images')));
 
 app.use(express.json());
 app.use(

@@ -31,7 +31,7 @@ const fetchTokensMetadata = async (tokens: Token[]) => {
     }
 
     const data = await result.json();
-    return data.data as TokenWithMetadata[];
+    return data as TokenWithMetadata[];
 };
 
 export const useTokensMetadata = (tokens: Token[]) => {

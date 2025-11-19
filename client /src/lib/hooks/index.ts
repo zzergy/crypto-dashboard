@@ -1,5 +1,5 @@
 export * from './useCurrentTokenPrices';
-export * from './useMultipleTokenPriceHistory';
+export * from './useGetTableContent';
 export * from './useTokenPriceHistory';
 export * from './useTokensMetadata';
 export * from './useTokenNews';

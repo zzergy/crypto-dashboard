@@ -29,3 +29,4 @@ export const API_BASE_URL =
 
 export const TOKENS_METADATA = `${API_BASE_URL}/api/tokens/metadata`;
 export const TOKEN_NEWS = `${API_BASE_URL}/api/tokens/news?tokenSymbol=`;
+export const TOKENS_TABLE_CONTENT = `${API_BASE_URL}/api/tokens/table-content`;

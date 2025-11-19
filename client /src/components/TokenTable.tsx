@@ -4,8 +4,8 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { HistoricalPriceInterval } from 'alchemy-sdk';
 import {
     useCurrentTokenPrices,
-    useMultipleTokenPriceHistory,
     useTokensMetadata,
+    useTokenTableContent,
 } from '../lib/hooks';
 import { topEthereumTokens } from '../types';
 import tokenIcon from '../assets/icons/token-icon.svg';
@@ -15,7 +15,8 @@ const TokenTable = () => {
     const { startDate, endDate } = useMemo(() => getTimeRange(7), []);
 
     const symbols = useMemo(() => topEthereumTokens.map((t) => t.symbol), []);
-    const priceHistoryPayload = useMemo(
+
+    const getTokenTableContentPayload = useMemo(
         () => ({
             symbols,
             startDate,
@@ -25,51 +26,8 @@ const TokenTable = () => {
         [symbols, startDate, endDate]
     );
 
-    const { data: tokensCurrentPrices, isLoading: tokensLoading } =
-        useCurrentTokenPrices(symbols);
-
-    const { data: metadata, isLoading: metadataLoading } =
-        useTokensMetadata(topEthereumTokens);
-
-    const { data: historicalPrices, isLoading: historicalLoading } =
-        useMultipleTokenPriceHistory(priceHistoryPayload);
-
-    const isLoading = tokensLoading || metadataLoading || historicalLoading;
-
-    const rows = useMemo(() => {
-        if (!tokensCurrentPrices || !metadata || !historicalPrices) return [];
-
-        return tokensCurrentPrices.map((token) => {
-            const meta = metadata.find(
-                (metadata) => metadata.symbol === token.symbol
-            )?.data;
-            const priceHistory =
-                (historicalPrices[token.symbol]?.data as HistoryPoint[]) || [];
-
-            const { change24h, change7d } = calculateChanges(
-                priceHistory,
-                token.price
-            );
-
-            const prices = priceHistory
-                .map((p) => parseFloat(p.value))
-                .filter((v) => !isNaN(v));
-            const ath = prices.length ? Math.max(...prices) : null;
-            const atl = prices.length ? Math.min(...prices) : null;
-
-            return {
-                id: token.symbol,
-                symbol: token.symbol,
-                name: meta?.name || token.symbol,
-                logo: meta?.logo || tokenIcon,
-                price: token.price,
-                change24h,
-                change7d,
-                ath,
-                atl,
-            };
-        });
-    }, [tokensCurrentPrices, metadata, historicalPrices]);
+    const { data: tableContent, isLoading: isTableContentLoading } =
+        useTokenTableContent(getTokenTableContentPayload);
 
     const columns: GridColDef[] = [
         {
@@ -79,7 +37,7 @@ const TokenTable = () => {
             renderCell: (params: any) => (
                 <Box display="flex" alignItems="center" gap={1} height="100%">
                     <img
-                        src={params.row.logo}
+                        src={params.row.logo || tokenIcon}
                         alt={params.row.symbol}
                         width={24}
                         height={24}
@@ -174,7 +132,7 @@ const TokenTable = () => {
                 borderRadius: 3,
             }}
         >
-            {isLoading ? (
+            {isTableContentLoading ? (
                 <Box
                     height="100%"
                     display="flex"
@@ -200,7 +158,7 @@ const TokenTable = () => {
                                 outline: 'none',
                             },
                     }}
-                    rows={rows}
+                    rows={tableContent}
                     columns={columns}
                     hideFooter
                 />

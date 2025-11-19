@@ -1,47 +1,14 @@
 import express from 'express';
-import chalk from 'chalk';
-import { fetchTokenNews, fetchTokensMetadata } from '../repositories';
+import {
+    getTokenNews,
+    getTokensMetadata,
+    getTokenTableContent,
+} from '../controllers';
 
 export const tokensRouter = express.Router();
 
-tokensRouter.post('/metadata', async (req, res) => {
-    const tokens = req.body;
+tokensRouter.post('/metadata', getTokensMetadata);
 
-    if (!tokens || !Array.isArray(tokens)) {
-        console.error(chalk.red('Invalid tokens parameter:'), tokens);
-        return res.status(400).json({ error: 'Invalid tokens parameter' });
-    }
+tokensRouter.get('/news', getTokenNews);
 
-    try {
-        const metadata = await fetchTokensMetadata(tokens);
-        res.json({ data: metadata });
-    } catch (err) {
-        const error: Error = err as Error;
-
-        console.error(chalk.red('Internal server error:'), error);
-        res.status(500).json({
-            error: 'Internal Server Error',
-            message: error.message,
-        });
-    }
-});
-
-tokensRouter.get('/news', async (req, res) => {
-    const tokenSymbol = req.query.tokenSymbol as unknown as string;
-
-    try {
-        const response = await fetchTokenNews(tokenSymbol);
-        const news = await response;
-
-        res.json(news);
-    } catch (err) {
-        const error: Error = err as Error;
-
-        console.error(chalk.red('Internal server error:'), error);
-
-        res.status(500).json({
-            error: 'Internal Server Error',
-            message: error.message,
-        });
-    }
-});
+tokensRouter.post('/table-content', getTokenTableContent);

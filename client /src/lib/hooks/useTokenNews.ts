@@ -1,15 +1,12 @@
-// hooks/useTokenNews.ts
 import { useQuery } from '@tanstack/react-query';
+import { TOKEN_NEWS } from '../../types';
 
 const fetchTokenNews = async (symbol: string) => {
-    const apiKey = import.meta.env.VITE_GNEWS_API_KEY;
-    const query = encodeURIComponent(`${symbol} token crypto`);
-    const res = await fetch(
-        `https://gnews.io/api/v4/search?q=${query}&token=${apiKey}&lang=en`
-    );
-    if (!res.ok) throw new Error('Failed to fetch news');
-    const data = await res.json();
-    return data.articles; // array of articles
+    const res = await fetch(TOKEN_NEWS + `${symbol}`, {
+        method: 'GET',
+    });
+    const news = await res.json();
+    return news;
 };
 
 export const useTokenNews = (symbol: string) => {

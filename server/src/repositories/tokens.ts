@@ -14,3 +14,17 @@ export const fetchTokensMetadata = async (tokens: TokenMetadata[]) => {
         })
     );
 };
+
+export const fetchTokenNews = async (symbol: string) => {
+    const apiKey = process.env.GNEWS_API_KEY;
+    const query = encodeURIComponent(`${symbol} token crypto`);
+
+    const res = await fetch(
+        `https://gnews.io/api/v4/search?q=${query}&token=${apiKey}&lang=en`
+    );
+
+    if (!res.ok) throw new Error('Failed to fetch news');
+
+    const data = await res.json();
+    return data.articles;
+};

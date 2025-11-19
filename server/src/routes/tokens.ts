@@ -1,6 +1,6 @@
 import express from 'express';
 import chalk from 'chalk';
-import { fetchTokensMetadata } from '../repositories';
+import { fetchTokenNews, fetchTokensMetadata } from '../repositories';
 
 export const tokensRouter = express.Router();
 
@@ -19,6 +19,26 @@ tokensRouter.post('/metadata', async (req, res) => {
         const error: Error = err as Error;
 
         console.error(chalk.red('Internal server error:'), error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message,
+        });
+    }
+});
+
+tokensRouter.get('/news', async (req, res) => {
+    const tokenSymbol = req.query.tokenSymbol as unknown as string;
+
+    try {
+        const response = await fetchTokenNews(tokenSymbol);
+        const news = await response;
+
+        res.json(news);
+    } catch (err) {
+        const error: Error = err as Error;
+
+        console.error(chalk.red('Internal server error:'), error);
+
         res.status(500).json({
             error: 'Internal Server Error',
             message: error.message,

@@ -13,7 +13,7 @@ const Dashboard = () => {
         >
             <TokenTable />
             <Chart />
-            <TokenNews symbol="SUSHI" />
+            <TokenNews symbol="ETH" />
         </Box>
     );
 };

@@ -2,14 +2,10 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { HistoricalPriceInterval } from 'alchemy-sdk';
-import {
-    useCurrentTokenPrices,
-    useTokensMetadata,
-    useTokenTableContent,
-} from '../lib/hooks';
+import { useTokenTableContent } from '../lib/hooks';
 import { topEthereumTokens } from '../types';
 import tokenIcon from '../assets/icons/token-icon.svg';
-import { calculateChanges, getTimeRange, HistoryPoint } from '../utils';
+import { getTimeRange } from '../utils';
 
 const TokenTable = () => {
     const { startDate, endDate } = useMemo(() => getTimeRange(7), []);

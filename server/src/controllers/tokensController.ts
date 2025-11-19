@@ -1,9 +1,10 @@
 import chalk from 'chalk';
 import {
     fetchCurrentTokenPrices,
-    fetchHistoricalPricesBySymbol,
+    fetchTokensPriceHistory,
     fetchTokenNews,
     fetchTokensMetadata,
+    fetchSingleTokenPriceHistory,
 } from '../repositories';
 import { Request, Response } from 'express';
 import { calculateChanges, HistoryPoint } from '../utils/calculateTokenChanges';
@@ -61,7 +62,7 @@ export const getTokenTableContent = async (req: Request, res: Response) => {
 
     try {
         const metadata = await fetchTokensMetadata(TOP_ETHEREUM_TOKENS);
-        const historyPrices = await fetchHistoricalPricesBySymbol(payload);
+        const historyPrices = await fetchTokensPriceHistory(payload);
         const tokensCurrentPrices = await fetchCurrentTokenPrices(
             TOP_ETHEREUM_TOKENS.map((token) => token.symbol)
         );
@@ -105,6 +106,29 @@ export const getTokenTableContent = async (req: Request, res: Response) => {
         });
 
         res.json(rows);
+    } catch (err) {
+        const error: Error = err as Error;
+
+        console.error(chalk.red('Internal server error:'), error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message,
+        });
+    }
+};
+
+export const getSingleTokenPriceHistory = async (
+    req: Request,
+    res: Response
+) => {
+    const payload = req.body;
+
+    if (!payload) return res.status(400).json({ error: 'Invalid payload' });
+
+    try {
+        const tokenPriceHistory = await fetchSingleTokenPriceHistory(payload);
+
+        res.json(tokenPriceHistory);
     } catch (err) {
         const error: Error = err as Error;
 

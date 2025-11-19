@@ -12,14 +12,19 @@ export type TokenHistoricalData = {
     data: HistoryPoint[];
 };
 
-export interface GetMultipleHistoricalPriceBySymbolPayload {
+export interface fetchTokensPriceHistoryPayload {
     symbols: string[];
     startDate: string;
     endDate: string;
     interval: HistoricalPriceInterval;
 }
 
-export interface Row {
+export interface GetSingleTokenPriceHistoryPayload {
+    symbol: string;
+    interval: HistoricalPriceInterval;
+}
+
+export interface TableRow {
     id: string;
     name: string;
     logo: string | null;

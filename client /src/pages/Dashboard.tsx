@@ -9,7 +9,7 @@ const Dashboard = () => {
             flexDirection="column"
             alignItems="center"
             gap={2}
-            p={4}
+            p={6}
         >
             <TokenTable />
             <Chart />

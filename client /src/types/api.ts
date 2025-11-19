@@ -17,7 +17,7 @@ export interface GetTableContentPayload {
     endDate: string;
     interval: HistoricalPriceInterval;
 }
-export interface GetHistoricalPriceBySymbolPayload {
+export interface GetSingleTokenPriceHistoryPayload {
     symbol: string;
     interval: HistoricalPriceInterval;
 }

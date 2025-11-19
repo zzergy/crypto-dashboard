@@ -43,7 +43,7 @@ const Chart = () => {
                     overflowX: 'auto',
                     px: 2,
                     py: 4,
-                    width: '90%',
+                    width: '100%',
                     border: '1px solid',
                     borderColor: 'divider',
                     borderRadius: 3,

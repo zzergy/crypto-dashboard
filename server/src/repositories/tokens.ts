@@ -1,9 +1,11 @@
 import {
-    GetMultipleHistoricalPriceBySymbolPayload,
+    fetchTokensPriceHistoryPayload,
+    GetSingleTokenPriceHistoryPayload,
     HistoryPoint,
     TokenHistoricalData,
     TokenMetadata,
 } from '../types';
+import { getTimeRange } from '../utils/getTimeRange';
 import { alchemy } from './alchemy';
 
 export const fetchTokensMetadata = async (tokens: TokenMetadata[]) => {
@@ -34,8 +36,8 @@ export const fetchTokenNews = async (symbol: string) => {
     return data.articles;
 };
 
-export const fetchHistoricalPricesBySymbol = async (
-    payload: GetMultipleHistoricalPriceBySymbolPayload
+export const fetchTokensPriceHistory = async (
+    payload: fetchTokensPriceHistoryPayload
 ) => {
     const results = await Promise.all(
         payload.symbols.map((symbol) =>
@@ -68,4 +70,19 @@ export const fetchCurrentTokenPrices = async (symbols: string[]) => {
         price: parseFloat(token.prices[0]?.value || '0'),
     }));
     return formattedPrices;
+};
+
+export const fetchSingleTokenPriceHistory = async (
+    payload: GetSingleTokenPriceHistoryPayload
+) => {
+    const { startDate: startTime, endDate: endTime } = getTimeRange(20);
+
+    const tokenPriceHistory = alchemy.prices.getHistoricalPriceBySymbol(
+        payload.symbol,
+        startTime,
+        endTime,
+        payload.interval
+    );
+
+    return tokenPriceHistory;
 };

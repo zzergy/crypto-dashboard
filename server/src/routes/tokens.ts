@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+    getSingleTokenPriceHistory,
     getTokenNews,
     getTokensMetadata,
     getTokenTableContent,
@@ -12,3 +13,5 @@ tokensRouter.post('/metadata', getTokensMetadata);
 tokensRouter.get('/news', getTokenNews);
 
 tokensRouter.post('/table-content', getTokenTableContent);
+
+tokensRouter.post('/chart', getSingleTokenPriceHistory);

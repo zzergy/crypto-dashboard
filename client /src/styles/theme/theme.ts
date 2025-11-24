@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { palette } from './palette';
+import { textFieldStyles } from './textFieldStyles';
 
 export const darkTheme = createTheme({
     palette: {
@@ -15,5 +16,8 @@ export const darkTheme = createTheme({
     },
     typography: {
         fontFamily: "'Manrope', sans-serif",
+    },
+    components: {
+        ...textFieldStyles,
     },
 });

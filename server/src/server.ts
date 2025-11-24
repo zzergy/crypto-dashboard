@@ -3,12 +3,15 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import cors from 'cors';
 import { tokensRouter } from './routes/tokens';
-import path from 'path';
+import { connectDB } from './db';
 
 dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 8888;
 const CLIENT_PORT = process.env.CLIENT_PORT || 5173;
+
+connectDB();
 
 app.use(express.json());
 app.use(
@@ -21,7 +24,7 @@ app.use(
 
 app.use('/api/tokens', tokensRouter);
 
-app.get('/api', (req, res) => {
+app.get('/api', (_req, res) => {
     res.json({ message: 'Crypto Dashboard Server is running' });
 });
 

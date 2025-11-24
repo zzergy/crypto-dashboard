@@ -4,12 +4,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import heroVideo from '../../assets/hero.mp4';
 import GradientButton from '../GradientButton';
 import SectionWrapper from '../SectionWrapper';
-import { useScrollTo } from '../../utils';
-import { PageNames } from '../../types';
 import { palette } from '../../styles/theme/palette';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes';
 
 const HeroSection = () => {
-    const scrollTo = useScrollTo();
+    const navigate = useNavigate();
 
     return (
         <Box
@@ -84,7 +84,7 @@ const HeroSection = () => {
                     transition={{ delay: 0.8, duration: 0.6 }}
                 >
                     <GradientButton
-                        onClick={() => scrollTo(PageNames.FEATURES)}
+                        onClick={() => navigate(ROUTES.DASHBOARD)}
                     />
                 </motion.div>
             </Box>

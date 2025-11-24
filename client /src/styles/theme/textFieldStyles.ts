@@ -1,6 +1,6 @@
 import { Components, Theme } from '@mui/material';
 
-export const textFieldStyles: Components<Omit<Theme, 'components'>> = {
+export const textFieldStyles: Components<Theme> = {
     MuiTextField: {
         defaultProps: {
             variant: 'outlined',
@@ -23,15 +23,7 @@ export const textFieldStyles: Components<Omit<Theme, 'components'>> = {
                     borderColor: '#9C84D4',
                 },
             },
-            input: {
-                padding: '14px 16px',
-                color: '#FFFFFF',
 
-                '::placeholder': {
-                    color: 'white',
-                    opacity: 0.7,
-                },
-            },
             notchedOutline: {
                 borderColor: '#3a2d52',
             },

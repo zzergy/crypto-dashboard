@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { Chart, TokenTable } from '../components';
+import { Chart, Footer, TokenTable } from '../components';
 import TokenNews from '../components/news';
 
 const Dashboard = () => {
@@ -14,6 +14,7 @@ const Dashboard = () => {
             <TokenTable />
             <Chart />
             <TokenNews symbol="ETH" />
+            <Footer />
         </Box>
     );
 };

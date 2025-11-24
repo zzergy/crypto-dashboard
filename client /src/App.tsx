@@ -1,13 +1,20 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Footer } from './components';
 import { Dashboard, Homepage } from './pages';
+import Register from './pages/Register';
+import { ROUTES } from './routes';
 
 function App() {
     return (
         <>
-            <Dashboard />
-            {/* <Homepage />
-            <Footer /> */}
+            <BrowserRouter>
+                <Routes>
+                    <Route path={ROUTES.HOME} element={<Homepage />} />
+                    {/* <Route path="/login" element={<Login />} /> */}
+                    <Route path={ROUTES.REGISTER} element={<Register />} />
+                    <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+                </Routes>
+            </BrowserRouter>
         </>
     );
 }

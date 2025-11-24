@@ -25,7 +25,6 @@ const SectionWrapper = ({ Component, idName }: SectionWrapperProps) =>
                     sx={{
                         position: 'relative',
                         zIndex: 0,
-                        // px: { sm: 4, md: 6 },
                     }}
                 >
                     <Component />

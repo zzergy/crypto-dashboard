@@ -10,8 +10,6 @@ const app = express();
 const PORT = process.env.PORT || 8888;
 const CLIENT_PORT = process.env.CLIENT_PORT || 5173;
 
-app.use('/images', express.static(path.join(__dirname, '../public/images')));
-
 app.use(express.json());
 app.use(
     cors({

@@ -6,9 +6,11 @@ import {
     TokenMetadata,
 } from '../types';
 import { getTimeRange } from '../utils/getTimeRange';
-import { alchemy } from './alchemy';
+import { getAlchemy } from './alchemy';
 
 export const fetchTokensMetadata = async (tokens: TokenMetadata[]) => {
+    const alchemy = getAlchemy();
+
     return Promise.all(
         tokens.map(async ({ symbol, contract }) => {
             try {
@@ -39,6 +41,8 @@ export const fetchTokenNews = async (symbol: string) => {
 export const fetchTokensPriceHistory = async (
     payload: fetchTokensPriceHistoryPayload
 ) => {
+    const alchemy = getAlchemy();
+
     const results = await Promise.all(
         payload.symbols.map((symbol) =>
             alchemy.prices.getHistoricalPriceBySymbol(
@@ -64,6 +68,8 @@ export const fetchTokensPriceHistory = async (
 };
 
 export const fetchCurrentTokenPrices = async (symbols: string[]) => {
+    const alchemy = getAlchemy();
+
     const response = await alchemy.prices.getTokenPriceBySymbol(symbols);
     const formattedPrices = response.data.map((token) => ({
         symbol: token.symbol,
@@ -75,6 +81,7 @@ export const fetchCurrentTokenPrices = async (symbols: string[]) => {
 export const fetchSingleTokenPriceHistory = async (
     payload: GetSingleTokenPriceHistoryPayload
 ) => {
+    const alchemy = getAlchemy();
     const { startDate: startTime, endDate: endTime } = getTimeRange(20);
 
     const tokenPriceHistory = alchemy.prices.getHistoricalPriceBySymbol(

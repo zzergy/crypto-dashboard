@@ -1,11 +1,12 @@
-import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
 import chalk from 'chalk';
 import cors from 'cors';
 import { tokensRouter } from './routes/tokens';
 import { connectDB } from './db';
-
-dotenv.config();
+import { userRouter } from './routes/users';
 
 const app = express();
 const PORT = process.env.PORT || 8888;
@@ -21,6 +22,8 @@ app.use(
         allowedHeaders: ['Content-Type', 'Authorization'],
     })
 );
+
+app.use('/api/user', userRouter);
 
 app.use('/api/tokens', tokensRouter);
 

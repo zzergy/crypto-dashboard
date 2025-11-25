@@ -21,3 +21,9 @@ export interface GetSingleTokenPriceHistoryPayload {
     symbol: string;
     interval: HistoricalPriceInterval;
 }
+
+export interface RegisterUserPayload {
+    username: string;
+    email: string;
+    password: string;
+}

@@ -1,8 +1,20 @@
-import { Box, Typography, Link, TextField, Button } from '@mui/material';
+import {
+    Box,
+    Typography,
+    Link,
+    TextField,
+    Button,
+    CircularProgress,
+} from '@mui/material';
 import video from '../assets/crypto.mp4';
 import { Link as RouterLink } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useRegisterUser } from '../lib/hooks/useRegisterUser';
+import { registerValidationSchema } from '../schemas/registerSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+import { ROUTES } from '../routes';
 
 interface RegisterFormInputs {
     username: string;
@@ -11,9 +23,35 @@ interface RegisterFormInputs {
     confirmPassword: string;
 }
 
+const registerDefaultValues: RegisterFormInputs = {
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+};
+
 const Register = () => {
-    const { control, handleSubmit } = useForm<RegisterFormInputs>();
-    const onSubmit = (data: RegisterFormInputs) => console.log(data);
+    const { control, handleSubmit, reset } = useForm<RegisterFormInputs>({
+        defaultValues: registerDefaultValues,
+        resolver: yupResolver(registerValidationSchema),
+        mode: 'onChange',
+    });
+
+    const { mutateAsync, isPending } = useRegisterUser();
+
+    const onSubmit = async (data: RegisterFormInputs) => {
+        try {
+            const result = await mutateAsync({
+                username: data.username,
+                email: data.email,
+                password: data.password,
+            });
+            toast.success(result.message || 'Registration successful!');
+            reset(registerDefaultValues);
+        } catch (error: any) {
+            toast.error(error.message || 'Failed to register user');
+        }
+    };
 
     return (
         <Box
@@ -94,7 +132,7 @@ const Register = () => {
                     <Button
                         component={RouterLink}
                         endIcon={<ChevronRightIcon fontSize="small" />}
-                        to="/"
+                        to={ROUTES.HOME}
                         sx={{
                             borderRadius: 8,
                             textTransform: 'none',
@@ -140,7 +178,7 @@ const Register = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    px: { xs: 2, md: 14 },
+                    px: { xs: 2, md: 6, lg: 14 },
                 }}
             >
                 <Box>
@@ -180,6 +218,7 @@ const Register = () => {
                                 fullWidth
                                 margin="normal"
                                 error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         )}
@@ -195,6 +234,7 @@ const Register = () => {
                                 fullWidth
                                 margin="normal"
                                 error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         )}
@@ -210,6 +250,7 @@ const Register = () => {
                                 fullWidth
                                 margin="normal"
                                 error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         )}
@@ -225,6 +266,7 @@ const Register = () => {
                                 fullWidth
                                 margin="normal"
                                 error={!!fieldState.error}
+                                helperText={fieldState.error?.message}
                                 {...field}
                             />
                         )}
@@ -234,6 +276,7 @@ const Register = () => {
                         type="submit"
                         variant="contained"
                         fullWidth
+                        disabled={isPending}
                         sx={{
                             mt: 4,
                             borderRadius: 2,
@@ -243,7 +286,14 @@ const Register = () => {
                             textTransform: 'none',
                         }}
                     >
-                        Create Account
+                        {isPending ? (
+                            <CircularProgress
+                                size={24}
+                                sx={{ color: 'white' }}
+                            />
+                        ) : (
+                            'Create Account'
+                        )}
                     </Button>
                 </form>
             </Box>

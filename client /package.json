@@ -15,6 +15,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/manrope": "^5.2.8",
+    "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.2",
     "@mui/x-data-grid": "^8.11.3",
@@ -26,7 +27,9 @@
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.66.1",
     "react-router-dom": "^7.9.1",
-    "recharts": "^3.2.1"
+    "react-toastify": "^11.0.5",
+    "recharts": "^3.2.1",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
